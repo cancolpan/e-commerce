@@ -20,9 +20,12 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'],function (){
     Route::resource('/product', 'ProductController');
     Route::resource('/category', 'CategoryController');
     Route::get('/order', 'OrderController@index');
+    Route::resource('/users', 'AdminUsersController');
+    Route::get('/', 'AdminController@index');
 
 
 });
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
