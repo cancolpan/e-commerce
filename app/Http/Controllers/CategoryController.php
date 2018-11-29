@@ -9,7 +9,7 @@ class CategoryController extends Controller
 
     public function index($slug){
 
-        return 'category:'.$slug;
+        return view('category');
 
     }
 
