@@ -17,8 +17,7 @@
     <!-- Custom fonts for this template-->
     <link href="{{asset('vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">
 
-    <!-- Page level plugin CSS-->
-    <link href="{{asset('vendor/datatables/dataTables.bootstrap4.css')}}" rel="stylesheet">
+    @yield('header_css')
 
     <!-- Custom styles for this template-->
     <link href="{{asset('css/sb-admin.css')}}" rel="stylesheet">
@@ -98,6 +97,21 @@
                 <span>Dashboard</span>
             </a>
         </li>
+
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-fw fa-folder"></i>
+                <span>Users</span>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+
+                <a class="dropdown-item" href="login.html">List</a>
+                <a class="dropdown-item" href="register.html">Create</a>
+                </div>
+        </li>
+
+
+
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-fw fa-folder"></i>
@@ -192,6 +206,8 @@
 
 <!-- Custom scripts for all pages-->
 <script src="{{asset('js/sb-admin.js')}}"></script>
+
+@yield('footer_js')
 
 </body>
 

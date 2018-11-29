@@ -1,5 +1,6 @@
 <?php
 
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 
 class UsersTableSeeder extends Seeder
@@ -18,8 +19,8 @@ class UsersTableSeeder extends Seeder
             'status'=>'1',
             'role_id'=>'1',
             'password'=>'$2y$10$dVQJ/46h783s3yCqN2zEj.at.HWyghHCcb9qkgQNflDtnPOX2prtm',
-            'created_at'=>'2018-11-28 23:27:16',
-            'updated_at'=>'2018-11-28 23:27:16'
+            'created_at'=>Carbon::now(),
+            'updated_at'=>Carbon::now()
         ]);
         DB::table('users')->insert([
             'name'=>'Banu',
@@ -27,8 +28,8 @@ class UsersTableSeeder extends Seeder
             'status'=>'1',
             'role_id'=>'2',
             'password'=>'$2y$10$dVQJ/46h783s3yCqN2zEj.at.HWyghHCcb9qkgQNflDtnPOX2prtm',
-            'created_at'=>'2018-11-28 23:27:16',
-            'updated_at'=>'2018-11-28 23:27:16'
+            'created_at'=>Carbon::now(),
+            'updated_at'=>Carbon::now()
         ]);
         DB::table('users')->insert([
             'name'=>'Toprak',
@@ -36,8 +37,8 @@ class UsersTableSeeder extends Seeder
             'status'=>'1',
             'role_id'=>'3',
             'password'=>'$2y$10$dVQJ/46h783s3yCqN2zEj.at.HWyghHCcb9qkgQNflDtnPOX2prtm',
-            'created_at'=>'2018-11-28 23:27:16',
-            'updated_at'=>'2018-11-28 23:27:16'
+            'created_at'=>Carbon::now(),
+            'updated_at'=>Carbon::now()
         ]);
         DB::table('users')->insert([
             'name'=>'Irmak',
@@ -45,8 +46,8 @@ class UsersTableSeeder extends Seeder
             'status'=>'1',
             'role_id'=>'4',
             'password'=>'$2y$10$dVQJ/46h783s3yCqN2zEj.at.HWyghHCcb9qkgQNflDtnPOX2prtm',
-            'created_at'=>'2018-11-28 23:27:16',
-            'updated_at'=>'2018-11-28 23:27:16'
+            'created_at'=>Carbon::now(),
+            'updated_at'=>Carbon::now()
         ]);
     }
 }
