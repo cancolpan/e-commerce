@@ -6,6 +6,7 @@
     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
         <thead>
         <tr>
+            <th width="5px">#</th>
             <th>Name</th>
             <th>E-mail</th>
             <th>Status</th>
@@ -16,9 +17,10 @@
         <tbody>
         @foreach($users as $user)
             <tr>
-                <td>{{$user->name}}</td>
+                <td>{{$user->id}}</td>
+                <td><a href="{{route('users.edit', $user->id)}}">{{$user->name}}</a></td>
                 <td>{{$user->email}}</td>
-                <td>{{$user->status==1 ? 'Active' : 'Disabled'}}</td>
+                <td>{{$user->status==1 ? 'Active' : 'Inactive'}}</td>
                 <td>{{$user->role->name}}</td>
                 <td>{{$user->created_at->diffForHumans()}}</td>
             </tr>
