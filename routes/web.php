@@ -17,11 +17,12 @@ Route::get('/user', 'UserController@index')->name('user');
 
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin'],function (){
 
-    Route::resource('/product', 'ProductController');
-    Route::resource('/category', 'CategoryController');
-    Route::get('/order', 'OrderController@index');
+   // Route::resource('/product', 'ProductController');
+   // Route::resource('/category', 'CategoryController');
+   // Route::get('/order', 'OrderController@index');
     Route::resource('/users', 'AdminUsersController');
-    Route::get('/', 'AdminController@index');
+    Route::resource('/categories', 'AdminCategoriesController');
+   // Route::get('/', 'AdminController@index');
 
 
 });

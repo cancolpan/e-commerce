@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Requests\CategoryCreateRequest;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class CategoryController extends Controller
+class AdminCategoriesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +17,8 @@ class CategoryController extends Controller
     public function index()
     {
         //
-        return 'admin category';
+        $categories = Category::all();
+        return view('admin.categories.index', compact('categories'));
     }
 
     /**
@@ -26,6 +29,8 @@ class CategoryController extends Controller
     public function create()
     {
         //
+        $parents = Category::pluck('name','id')->all();
+        return view('admin.categories.create', compact('parents'));
     }
 
     /**
@@ -37,6 +42,9 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         //
+        Category::create($request->all());
+
+        return redirect('admin/categories')->with('success', 'Category Added');
     }
 
     /**
@@ -59,6 +67,10 @@ class CategoryController extends Controller
     public function edit($id)
     {
         //
+        $category = Category::findOrFail($id);
+        $parents = Category::pluck('name','id')->all();
+
+        return view('admin.categories.edit', compact('category','parents'));
     }
 
     /**
@@ -70,7 +82,13 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
+        $category= Category::findOrFail($id);
+
+        $category->update($request->all());
+
+        return redirect('admin/categories')->with('success', 'Category Updated');
+
     }
 
     /**
@@ -82,5 +100,10 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         //
+
+         Category::findOrFail($id)->delete();
+
+        return redirect('admin/categories')->with('success','Category Deleted');
+
     }
 }
