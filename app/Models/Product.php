@@ -26,4 +26,12 @@ class Product extends Model
         'meta_keyword',
         'sort'
     ];
+
+
+    public function categories()
+    {
+
+        return $this->belongsToMany('App\Models\Category', 'category_product');
+
+    }
 }

@@ -7,6 +7,7 @@
         <thead>
         <tr>
             <th width="5px">#</th>
+            <th>SKU</th>
             <th>Name</th>
             <th>Status</th>
             <th>Created</th>
@@ -16,6 +17,7 @@
         @foreach($products as $product)
             <tr>
                 <td>{{$product->id}}</td>
+                <td>{{$product->sku}}</td>
                 <td><a href="{{route('products.edit', $product->id)}}">{{$product->name}}</a></td>
                 <td>{{$product->status==1 ? 'Active' : 'Inactive'}}</td>
                 <td>{{$product->created_at->diffForHumans()}}</td>

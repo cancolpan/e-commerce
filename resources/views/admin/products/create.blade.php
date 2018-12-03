@@ -6,6 +6,11 @@
 
     {!! Form::open(['method'=>'POST', 'action'=>'Admin\AdminProductsController@store']) !!}
 
+    <div class="form-group">
+        {!! Form::label('categories','Categories') !!}
+        {!! Form::select('categories[]', $categories ,null,['class'=>'categories form-control',  'multiple'=>'multiple']) !!}
+    </div>
+
 
     <div class="form-group">
         {!! Form::label('sku','SKU') !!}
@@ -64,4 +69,17 @@
     {!! Form::close() !!}
 
 
+@endsection
+
+@section('header_css')
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+@endsection
+
+@section('footer_js')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+    <script>
+        $('.categories').select2({
+            placeholder: 'Select a Category'
+        });
+    </script>
 @endsection

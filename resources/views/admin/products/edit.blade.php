@@ -6,6 +6,10 @@
 
     {!! Form::model($product,['method'=>'PUT', 'action'=>['Admin\AdminProductsController@update', $product->id]]) !!}
 
+    <div class="form-group">
+        {!! Form::label('categories','Categories') !!}
+        {!! Form::select('categories[]', $categories ,null,['class'=>'categories form-control',  'multiple'=>'multiple']) !!}
+    </div>
 
     <div class="form-group">
         {!! Form::label('sku','SKU') !!}
@@ -66,11 +70,24 @@
 
     {!! Form::open(['method'=>'DELETE', 'action'=>['Admin\AdminProductsController@destroy',$product->id]]) !!}
 
-        <div class="form-group">
-            {!! Form::submit('Delete Product', ['class'=>'btn btn-danger']) !!}
-        </div>
+    <div class="form-group">
+        {!! Form::submit('Delete Product', ['class'=>'btn btn-danger']) !!}
+    </div>
 
-        {!! Form::close() !!}
+    {!! Form::close() !!}
 
 
+@endsection
+
+@section('header_css')
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet"/>
+@endsection
+
+@section('footer_js')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+    <script>
+        $('.categories').select2({
+            placeholder: 'Select a Category'
+        });
+    </script>
 @endsection

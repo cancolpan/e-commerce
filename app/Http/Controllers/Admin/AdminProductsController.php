@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\ProductCreateRequest;
+use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -31,7 +32,8 @@ class AdminProductsController extends Controller
     public function create()
     {
         //
-        return view('admin.products.create');
+        $categories = Category::pluck('name', 'id');
+        return view('admin.products.create', compact('categories'));
     }
 
     /**
@@ -43,7 +45,12 @@ class AdminProductsController extends Controller
     public function store(ProductCreateRequest $request)
     {
         //
-        Product::create($request->all());
+
+        $categories = request('categories');
+
+        $input = Product::create($request->all());
+        $input->categories()->attach($categories);
+
 
         return redirect('admin/products')->with('success', 'Product Added');
     }
@@ -68,8 +75,9 @@ class AdminProductsController extends Controller
     public function edit($id)
     {
         //
+        $categories = Category::pluck('name', 'id');
         $product = Product::findOrFail($id);
-        return view('admin.products.edit', compact('product'));
+        return view('admin.products.edit', compact('product', 'categories'));
     }
 
     /**
@@ -82,12 +90,16 @@ class AdminProductsController extends Controller
     public function update(Request $request, $id)
     {
 
+        $categories = request('categories');
+
         $product = Product::findOrFail($id);
 
         $product->update($request->all());
 
+        $product->categories()->sync($categories);
+
         return redirect('admin/products')->with('success', 'Product Updated');
-   }
+    }
 
     /**
      * Remove the specified resource from storage.
@@ -100,7 +112,7 @@ class AdminProductsController extends Controller
         //
         Product::findOrFail($id)->delete();
 
-        return redirect('admin/products')->with('success','Product Deleted');
+        return redirect('admin/products')->with('success', 'Product Deleted');
 
     }
 }
