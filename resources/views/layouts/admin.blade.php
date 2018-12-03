@@ -110,8 +110,8 @@
             </a>
             <div class="dropdown-menu" aria-labelledby="pagesDropdown">
 
-                <a class="dropdown-item" href="login.html">List</a>
-                <a class="dropdown-item" href="register.html">Create</a>
+                <a class="dropdown-item" href="{{route('users.index')}}">List</a>
+                <a class="dropdown-item" href="{{route('users.create')}}">Create</a>
             </div>
         </li>
 
