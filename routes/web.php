@@ -22,6 +22,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'],function (){
    // Route::get('/order', 'OrderController@index');
     Route::resource('/users', 'AdminUsersController');
     Route::resource('/categories', 'AdminCategoriesController');
+    Route::resource('/products', 'AdminProductsController');
    // Route::get('/', 'AdminController@index');
 
 

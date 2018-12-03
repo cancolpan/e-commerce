@@ -18,8 +18,14 @@ class CreateProductsTable extends Migration
             $table->string('sku');
             $table->string('name');
             $table->string('slug');
-            $table->text('description');
-            $table->string('short_description');
+            $table->longText('body');
+            $table->text('body_short');
+            $table->smallInteger('status');
+            $table->text('meta_title');
+            $table->text('meta_description');
+            $table->text('meta_keyword');
+            $table->integer('sort')->unsigned()->default('0');
+            $table->decimal('price',10,2);
             $table->timestamps();
             $table->softDeletes();
         });
