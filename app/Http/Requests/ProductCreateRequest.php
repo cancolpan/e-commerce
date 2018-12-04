@@ -35,7 +35,8 @@ class ProductCreateRequest extends FormRequest
             'meta_title' => 'required',
             'meta_description' => 'required',
             'meta_keyword' => 'required',
-            'sort' =>'integer'
+            'sort' =>'integer',
+            'image_1'=> 'image|mimes:jpg,png,jpeg,gif|max:2048'
         ];
     }
 

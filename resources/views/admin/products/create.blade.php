@@ -4,7 +4,7 @@
 @section('content')
 
 
-    {!! Form::open(['method'=>'POST', 'action'=>'Admin\AdminProductsController@store']) !!}
+    {!! Form::open(['method'=>'POST', 'action'=>'Admin\AdminProductsController@store', 'files'=>true]) !!}
 
     <div class="form-group">
         {!! Form::label('categories','Categories') !!}
@@ -32,7 +32,7 @@
     </div>
     <div class="form-group">
         {!! Form::label('body_short','Summary') !!}
-        {!! Form::textarea('body_short',null,['class'=>'form-control']) !!}
+        {!! Form::textarea('body_short',null,['class'=>'form-control','rows' => 3]) !!}
     </div>
     <div class="form-group">
         {!! Form::label('body','Body') !!}
@@ -61,6 +61,22 @@
         {!! Form::text('meta_keyword',null,['class'=>'form-control']) !!}
     </div>
 
+    <hr>
+    @for ($i = 1; $i <= 8; $i++)
+    <div class="form-inline">
+        <div class="form-group mb-2">
+            {!! Form::label('image_'.$i,'Product Image '.$i.' : ') !!}
+            {!! Form::file('image_'.$i) !!}
+        </div>
+        <div class="form-group mx-sm-5 mb-3">
+            {!! Form::label('image_description_'.$i,'SEO Desc. : ') !!}
+            {!! Form::text('image_description_'.$i,null,['class'=>'form-control']) !!}
+        </div>
+    </div>
+    @endfor
+
+    <hr>
+
 
     <div class="form-group">
         {!! Form::submit('Create Product', ['class'=>'btn btn-primary']) !!}
@@ -72,14 +88,35 @@
 @endsection
 
 @section('header_css')
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet"/>
 @endsection
 
 @section('footer_js')
+    {{--CKEDITOR--}}
+    <script src="//cdn.ckeditor.com/4.11.1/standard/ckeditor.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ckeditor/4.11.1/plugins/autogrow/plugin.js"></script>
+    {{--CK EDITOR--}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
     <script>
-        $('.categories').select2({
-            placeholder: 'Select a Category'
+
+        $(function () {
+            $('.categories').select2({
+                placeholder: 'Select a Category'
+            });
+
+            CKEDITOR.replace('body_short', {
+                height: 100
+            });
+            CKEDITOR.replace('body', {
+                extraPlugins: 'autogrow',
+                autoGrow_minHeight: 250,
+                autoGrow_maxHeight: 600,
+                filebrowserImageBrowseUrl: '/laravel-filemanager?type=Images',
+                filebrowserImageUploadUrl: '/laravel-filemanager/upload?type=Images&_token=',
+                filebrowserBrowseUrl: '/laravel-filemanager?type=Files',
+                filebrowserUploadUrl: '/laravel-filemanager/upload?type=Files&_token='
+            });
+
         });
     </script>
 @endsection

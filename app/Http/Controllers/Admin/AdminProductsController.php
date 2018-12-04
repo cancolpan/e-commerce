@@ -48,8 +48,26 @@ class AdminProductsController extends Controller
 
         $categories = request('categories');
 
-        $input = Product::create($request->all());
-        $input->categories()->attach($categories);
+        $product = Product::create($request->all());
+        $product->categories()->attach($categories);
+
+
+        // Image Processes
+
+        for ($i = 1; $i <= +8; $i++) { // for 8 images
+
+            if (request()->hasFile('image_'.$i)) {
+                $file = $request->file('image_'.$i);
+                $extension = $file->extension();
+                $file_name = $product->slug . '-'.$i.'-' . time() . "." . $extension;
+                $file->move(public_path('uploads/products'), $file_name);
+
+                $product->update(array('image_'.$i => $file_name, 'image_'.$i.'_description' => request('image_'.$i.'_description')));
+            }
+
+        }
+        // Image Processes
+
 
 
         return redirect('admin/products')->with('success', 'Product Added');
@@ -77,6 +95,7 @@ class AdminProductsController extends Controller
         //
         $categories = Category::pluck('name', 'id');
         $product = Product::findOrFail($id);
+
         return view('admin.products.edit', compact('product', 'categories'));
     }
 
@@ -97,6 +116,24 @@ class AdminProductsController extends Controller
         $product->update($request->all());
 
         $product->categories()->sync($categories);
+
+
+        // Image Processes
+
+        for ($i = 1; $i <= +8; $i++) { // for 8 images
+
+            if (request()->hasFile('image_'.$i)) {
+                $file = $request->file('image_'.$i);
+                $extension = $file->extension();
+                $file_name = $product->slug . '-'.$i.'-' . time() . "." . $extension;
+                $file->move(public_path('uploads/products'), $file_name);
+
+                $product->update(array('image_'.$i => $file_name, 'image_'.$i.'_description' => request('image_'.$i.'_description')));
+            }
+
+        }
+        // Image Processes
+
 
         return redirect('admin/products')->with('success', 'Product Updated');
     }
