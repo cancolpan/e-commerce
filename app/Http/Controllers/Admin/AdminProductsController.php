@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Input;
 
 class AdminProductsController extends Controller
 {
@@ -17,8 +18,8 @@ class AdminProductsController extends Controller
      */
     public function index()
     {
-        //
-        $products = Product::all();
+
+        $products = Product::orderByDesc('sku')->paginate(8);
 
         return view('admin.products.index', compact('products'));
 
@@ -29,7 +30,8 @@ class AdminProductsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public
+    function create()
     {
         //
         $categories = Category::pluck('name', 'id');
@@ -42,7 +44,8 @@ class AdminProductsController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ProductCreateRequest $request)
+    public
+    function store(ProductCreateRequest $request)
     {
         //
 
@@ -56,18 +59,17 @@ class AdminProductsController extends Controller
 
         for ($i = 1; $i <= +8; $i++) { // for 8 images
 
-            if (request()->hasFile('image_'.$i)) {
-                $file = $request->file('image_'.$i);
+            if (request()->hasFile('image_' . $i)) {
+                $file = $request->file('image_' . $i);
                 $extension = $file->extension();
-                $file_name = $product->slug . '-'.$i.'-' . time() . "." . $extension;
+                $file_name = $product->slug . '-' . $i . '-' . time() . "." . $extension;
                 $file->move(public_path('uploads/products'), $file_name);
 
-                $product->update(array('image_'.$i => $file_name, 'image_'.$i.'_description' => request('image_'.$i.'_description')));
+                $product->update(array('image_' . $i => $file_name, 'image_' . $i . '_description' => request('image_' . $i . '_description')));
             }
 
         }
         // Image Processes
-
 
 
         return redirect('admin/products')->with('success', 'Product Added');
@@ -79,7 +81,8 @@ class AdminProductsController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public
+    function show($id)
     {
         //
     }
@@ -90,7 +93,8 @@ class AdminProductsController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public
+    function edit($id)
     {
         //
         $categories = Category::pluck('name', 'id');
@@ -106,7 +110,8 @@ class AdminProductsController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public
+    function update(Request $request, $id)
     {
 
         $categories = request('categories');
@@ -122,13 +127,13 @@ class AdminProductsController extends Controller
 
         for ($i = 1; $i <= +8; $i++) { // for 8 images
 
-            if (request()->hasFile('image_'.$i)) {
-                $file = $request->file('image_'.$i);
+            if (request()->hasFile('image_' . $i)) {
+                $file = $request->file('image_' . $i);
                 $extension = $file->extension();
-                $file_name = $product->slug . '-'.$i.'-' . time() . "." . $extension;
+                $file_name = $product->slug . '-' . $i . '-' . time() . "." . $extension;
                 $file->move(public_path('uploads/products'), $file_name);
 
-                $product->update(array('image_'.$i => $file_name, 'image_'.$i.'_description' => request('image_'.$i.'_description')));
+                $product->update(array('image_' . $i => $file_name, 'image_' . $i . '_description' => request('image_' . $i . '_description')));
             }
 
         }
@@ -144,12 +149,28 @@ class AdminProductsController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public
+    function destroy($id)
     {
         //
         Product::findOrFail($id)->delete();
 
         return redirect('admin/products')->with('success', 'Product Deleted');
 
+    }
+
+
+    public function search()
+    {
+        $keyword = Input::get('keyword');
+
+        # going to next page is not working yet
+        $products = Product::where('sku', 'LIKE', '%' . $keyword . '%')
+            ->orWhere('name', 'LIKE', '%' . $keyword . '%')
+            ->orWhere('body', 'LIKE', '%' . $keyword . '%')
+            ->orWhere('body_short', 'LIKE', '%' . $keyword . '%')
+            ->paginate(8);
+
+        return view('admin.products.index', compact('products'));
     }
 }

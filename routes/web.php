@@ -23,6 +23,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'],function (){
     Route::resource('/users', 'AdminUsersController');
     Route::resource('/categories', 'AdminCategoriesController');
     Route::resource('/products', 'AdminProductsController');
+    Route::post('/products/search', 'AdminProductsController@search');
    // Route::get('/', 'AdminController@index');
 
 

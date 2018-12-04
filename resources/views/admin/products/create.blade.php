@@ -62,18 +62,18 @@
     </div>
 
     <hr>
-    @for ($i = 1; $i <= 8; $i++)
-    <div class="form-inline">
-        <div class="form-group mb-2">
-            {!! Form::label('image_'.$i,'Product Image '.$i.' : ') !!}
-            {!! Form::file('image_'.$i) !!}
-        </div>
-        <div class="form-group mx-sm-5 mb-3">
-            {!! Form::label('image_description_'.$i,'SEO Desc. : ') !!}
-            {!! Form::text('image_description_'.$i,null,['class'=>'form-control']) !!}
-        </div>
+    <div class="row">
+        @for ($i = 1; $i <= 8; $i++)
+            <div class="col-md-3">
+                <div class="thumbnail">
+                    <div class="form-group mb-2">
+                        {!! Form::file('image_'.$i) !!}
+                        {!! Form::text('image_description_'.$i,null,['class'=>'form-control','placeholder'=>'SEO Description']) !!}
+                    </div>
+                </div>
+            </div>
+        @endfor
     </div>
-    @endfor
 
     <hr>
 

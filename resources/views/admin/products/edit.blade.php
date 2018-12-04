@@ -61,20 +61,20 @@
     </div>
 
     <hr>
+
+    <div class="row">
     @for ($i = 1; $i <= 8; $i++)
-        <div class="form-inline">
-            <div class="form-group mb-2">
-                {!! Form::label('image_'.$i,'Product Image '.$i.' : ') !!}
-                {!! Form::file('image_'.$i) !!}
-            </div>
-            <div class="form-group mx-sm-5 mb-3">
-                {!! Form::label('image_description_'.$i,'SEO Desc. : ') !!}
-                {!! Form::text('image_description_'.$i,null,['class'=>'form-control']) !!}
+        <div class="col-md-3">
+            <div class="thumbnail">
+                    <img src="{{URL::to('/') }}/uploads/products/{{$product['image_'.$i]}}" alt="Nature" style="width:100%" class="card-img-top img-fluid">
+                <div class="form-group mb-2">
+                    {!! Form::file('image_'.$i) !!}
+                    {!! Form::text('image_description_'.$i,null,['class'=>'form-control','placeholder'=>'SEO Description']) !!}
+                </div>
             </div>
         </div>
-    @endfor
-
-    <hr>
+        @endfor
+    </div>
 
 
 
@@ -97,6 +97,37 @@
 @endsection
 
 @section('header_css')
+    <style>
+        /* Equal-height card images, cf. https://stackoverflow.com/a/47698201/1375163*/
+        .card-img-top {
+            /*height: 11vw;*/
+            object-fit: cover;
+        }
+        /* Small devices (landscape phones, 576px and up) */
+        @media (min-width: 576px) {
+            .card-img-top {
+                height: 19vw;
+            }
+        }
+        /* Medium devices (tablets, 768px and up) */
+        @media (min-width: 768px) {
+            .card-img-top {
+                height: 16vw;
+            }
+        }
+        /* Large devices (desktops, 992px and up) */
+        @media (min-width: 992px) {
+            .card-img-top {
+                height: 11vw;
+            }
+        }
+        /* Extra large devices (large desktops, 1200px and up) */
+        @media (min-width: 992px) {
+            .card-img-top {
+                height: 11vw;
+            }
+        }
+    </style>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet"/>
 @endsection
 
