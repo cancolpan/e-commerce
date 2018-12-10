@@ -19,7 +19,7 @@ class AdminProductsController extends Controller
     public function index()
     {
 
-        $products = Product::orderByDesc('sku')->paginate(8);
+        $products = Product::orderByDesc('id')->paginate(8);
 
         return view('admin.products.index', compact('products'));
 
@@ -169,6 +169,7 @@ class AdminProductsController extends Controller
             ->orWhere('name', 'LIKE', '%' . $keyword . '%')
             ->orWhere('body', 'LIKE', '%' . $keyword . '%')
             ->orWhere('body_short', 'LIKE', '%' . $keyword . '%')
+            ->orWhere('price', 'LIKE', '%' . $keyword . '%')
             ->paginate(8);
 
         return view('admin.products.index', compact('products'));

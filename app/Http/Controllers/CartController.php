@@ -8,7 +8,7 @@ class CartController extends Controller
 {
     public function index(){
 
-        return 'cart';
+        return view('front.cart.index');
 
     }
 }

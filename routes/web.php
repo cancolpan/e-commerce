@@ -5,7 +5,7 @@ Route::get('/', 'HomeController@index')->name('home');
 
 Route::get('/category/{slug}', 'CategoryController@index')->name('category');
 
-Route::get('/product/{slug}', 'ProductController@index')->name('product');
+Route::get('/product/{slug}', 'ProductsController@index')->name('product');
 
 Route::get('/cart','CartController@index')->name('cart');
 
