@@ -184,7 +184,7 @@
             </ol>
 
             <!-- Page Content -->
-            @include('inc.messages')
+
             @yield('content')
 
         </div>

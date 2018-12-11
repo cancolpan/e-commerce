@@ -47,7 +47,7 @@
                                         <var class="price h3 text-warning">
                                             <span class="currency">$</span><span class="num">{{$product->price}}</span>
                                         </var>
-                                        <span>/per kg</span>
+                                        {{--<span>/per kg</span>--}}
                                     </div> <!-- price-detail-wrap .// -->
                                     <dl>
                                         <dt>Description</dt>
@@ -81,15 +81,17 @@
                                         <div class="label-rating">154 orders </div>
                                     </div> <!-- rating-wrap.// -->
                                     <hr>
+                                    {!! Form::open(['method'=>'POST', 'action'=>'CartController@add']) !!}
                                     <div class="row">
                                         <div class="col-sm-5">
                                             <dl class="dlist-inline">
                                                 <dt>Quantity: </dt>
                                                 <dd>
-                                                    <select class="form-control form-control-sm" style="width:70px;">
-                                                        <option> 1 </option>
-                                                        <option> 2 </option>
-                                                        <option> 3 </option>
+
+                                                    <select class="form-control form-control-sm" style="width:70px;" name="quantity">
+                                                        @for($i=1;$i<1000;$i++)
+                                                            <option value="{{$i}}">{{$i}}</option>
+                                                        @endfor
                                                     </select>
                                                 </dd>
                                             </dl>  <!-- item-property .// -->
@@ -115,7 +117,18 @@
                                         </div> <!-- col.// -->
                                     </div> <!-- row.// -->
                                     <hr>
-                                    <a href="#" class="btn  btn-warning"> <i class="fa fa-cart-plus"></i> ADD TO CART </a>
+
+
+                                        <div class="form-group">
+                                            {!! Form::hidden('id', $product->id ) !!}
+                                        </div>
+
+                                        <div class="form-group">
+                                            {!! Form::submit('ADD TO CART', ['class'=>'btn btn-warning']) !!}
+                                        </div>
+
+                                        {!! Form::close() !!}
+                                    {{--<a href="#" class="btn  btn-warning"> <i class="fa fa-cart-plus"></i> ADD TO CART </a>--}}
                                     <!-- short-info-wrap .// -->
                                 </article> <!-- card-body.// -->
                             </aside> <!-- col.// -->

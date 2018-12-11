@@ -7,7 +7,18 @@ Route::get('/category/{slug}', 'CategoryController@index')->name('category');
 
 Route::get('/product/{slug}', 'ProductsController@index')->name('product');
 
-Route::get('/cart','CartController@index')->name('cart');
+
+Route::group(['prefix'=>'cart'], function(){
+
+    Route::get('/','CartController@index')->name('cart');
+    Route::post('/add','CartController@add')->name('cart.add');
+    Route::delete('/remove','CartController@remove')->name('cart.remove');
+    Route::post('/update','CartController@update')->name('cart.update');
+    Route::get('/clear', 'CartController@clear')->name('cart.clear');
+
+});
+
+
 
 Route::get('/order', 'OrderController@index')->name('order');
 

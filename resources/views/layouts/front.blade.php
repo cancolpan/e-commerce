@@ -95,7 +95,7 @@
                                 <div class="icon-wrap icon-xs bg2 round text-secondary"><i class="fa fa-shopping-cart"></i></div>
                                 <div class="text-wrap">
                                     
-                                    <span>3 items</span>
+                                    <span>{{ Cart::getTotalQuantity() }} items</span>
                                 </div>
                             </a>
                         </div> <!-- widget .// -->
@@ -143,7 +143,7 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown07" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">FLAG BANNERS</a>
                         <div class="dropdown-menu" aria-labelledby="dropdown07">
-                            <a class="dropdown-item" href="{{url('/category/test')}}">Feather Flag Banner</a>
+                            <a class="dropdown-item" href="{{url('/category/feather-flag-banners')}}">Feather Flag Banner</a>
                             <a class="dropdown-item" href="#">Teardrop Flag Banner</a>
                         </div>
                     </li>
@@ -175,7 +175,6 @@
     </nav>
 
 </header> <!-- section-header.// -->
-
 
 @yield('content')
 
