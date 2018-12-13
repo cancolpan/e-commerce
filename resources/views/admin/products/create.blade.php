@@ -32,42 +32,58 @@
     </div>
     <hr>
     <h4>Packing
-        <small> - Please add packing box type and product weight. If you packing separately please add all packing box options and weights. </small>
+        <small> - Please add packing box type and product weight. If you packing separately please add all packing box
+            options and weights.
+        </small>
     </h4>
 
 
-    <table class="table" width="100%" id="data">
+
+    <table id="myTable" class=" table order-list">
         <thead>
         <tr>
-            <th width="10px"><input type="button" class="btn btn-primary" id="addnew" name="addnew" value="Add"/>
-                <input type="hidden" id="items" name="items" value="1"/></th>
-            <th>Box Group</th>
-            <th>Weight (lb)</th>
-
+            <td>#</td>
+            <td>Box Group</td>
+            <td>Weight</td>
         </tr>
         </thead>
         <tbody>
         <tr>
-            <td></td>
-            <td>
+            <td class="col-sm-1"><input type="hidden" id="items" name="items" value="1"/>
+                <a class="deleteRow"></a>
+            </td>
+
+            <td class="col-sm-3">
                 <div class="form-group">
                     <select name="box_group_1" class="form-control">'+
                         '<?php
-                        foreach($box_groups as $box_group){
-                            echo '<option value="'.$box_group['id'].'">'.$box_group['name'].'</option>';
+                        foreach ($box_groups as $box_group) {
+                            echo '<option value="' . $box_group['id'] . '">' . $box_group['name'] . '</option>';
                         }
                         ?>.'+
                         '</select>
                 </div>
             </td>
-            <td>
-                <div class="form-group">
-                    {!! Form::text('weight_1',null,['class'=>'form-control']) !!}
-                </div>
+
+            <td class="col-sm-4">
+                {!! Form::text('weight_1',null,['class'=>'form-control']) !!}
             </td>
         </tr>
         </tbody>
+        <tfoot>
+        <tr>
+            <td colspan="5" style="text-align: left;">
+                <input type="button" class="btn btn-lg btn-block " id="addrow" value="Add Row"/>
+            </td>
+        </tr>
+        <tr>
+        </tr>
+        </tfoot>
     </table>
+
+
+
+
 
 
 
@@ -164,25 +180,40 @@
                 filebrowserUploadUrl: '/laravel-filemanager/upload?type=Files&_token='
             });
 
-            var currentItem = 1;
-            $('#addnew').click(function () {
-                currentItem++;
-                $('#items').val(currentItem);
-                var strToAdd = '<tr><td></td><td>' +
-                    '<div class="form-group">' +
-                        '<select name="box_group_'+currentItem+'" class="form-control">'+
-                        '<?php
-                        foreach($box_groups as $box_group){
-                         echo '<option value="'.$box_group['id'].'">'.$box_group['name'].'</option>';
-                        }
-                        ?>.'+
-                        '</select>'+
-                    '</div></td><td>' +
-                    '<input class="form-control" name="weight_'+currentItem+'" type="text">' +
-                    '</td></tr>';
-                $('#data').append(strToAdd);
 
+            // BOX GROUP PROCESS JAVASCRIPT
+
+
+            var currentItem = 1;
+
+            $("#addrow").on("click", function () {
+                currentItem++;
+                var newRow = $("<tr>");
+                var cols = '<td class="col-sm-1"><input type="button" class="ibtnDel btn btn-md btn-danger"  value="Delete"></td><td  class="col-sm-3" >' +
+                    '<div class="form-group">' +
+                    '<select name="box_group_' + currentItem + '" class="form-control">' +
+                    '<?php
+                        foreach ($box_groups as $box_group) {
+                            echo '<option value="' . $box_group['id'] . '">' . $box_group['name'] . '</option>';
+                        }
+                        ?>.' +
+                    '</select>' +
+                    '</div></td><td  class="col-sm-4">' +
+                    '<input class="form-control" name="weight_' + currentItem + '" type="text">' +
+                    '</td>';
+                newRow.append(cols);
+                $("table.order-list").append(newRow);
+                $('#items').val(currentItem);
             });
+
+
+            $("table.order-list").on("click", ".ibtnDel", function (event) {
+                $(this).closest("tr").remove();
+                currentItem -= 1
+                $('#items').val(currentItem);
+            });
+
+            // BOX GROUP PROCESS JAVASCRIPT
 
 
         });
