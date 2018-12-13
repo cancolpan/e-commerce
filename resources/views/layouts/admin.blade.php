@@ -140,6 +140,18 @@
                 <a class="dropdown-item" href="{{route('products.create')}}">Create</a>
             </div>
         </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown"
+               aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-fw fa-folder"></i>
+                <span>Packing Boxes</span>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+
+                <a class="dropdown-item" href="{{route('boxes.index')}}">List</a>
+                <a class="dropdown-item" href="{{route('boxes.create')}}">Create</a>
+            </div>
+        </li>
 
 
         <li class="nav-item dropdown">
@@ -184,7 +196,7 @@
             </ol>
 
             <!-- Page Content -->
-
+            @include('inc.messages')
             @yield('content')
 
         </div>
@@ -194,7 +206,7 @@
         <footer class="sticky-footer">
             <div class="container my-auto">
                 <div class="copyright text-center my-auto">
-                    <span>Copyright © Your Website 2018</span>
+                    <span>Copyright © PromotionalSigns.com 2018</span>
                 </div>
             </div>
         </footer>

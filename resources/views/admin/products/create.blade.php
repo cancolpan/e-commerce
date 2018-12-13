@@ -30,6 +30,49 @@
         {!! Form::label('price','Price') !!}
         {!! Form::text('price',null,['class'=>'form-control']) !!}
     </div>
+    <hr>
+    <h4>Packing
+        <small> - Please add packing box type and product weight. If you packing separately please add all packing box options and weights. </small>
+    </h4>
+
+
+    <table class="table" width="100%" id="data">
+        <thead>
+        <tr>
+            <th width="10px"><input type="button" class="btn btn-primary" id="addnew" name="addnew" value="Add"/>
+                <input type="hidden" id="items" name="items" value="1"/></th>
+            <th>Box Group</th>
+            <th>Weight (lb)</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td></td>
+            <td>
+                <div class="form-group">
+                    <select name="box_group_1" class="form-control">'+
+                        '<?php
+                        foreach($box_groups as $box_group){
+                            echo '<option value="'.$box_group['id'].'">'.$box_group['name'].'</option>';
+                        }
+                        ?>.'+
+                        '</select>
+                </div>
+            </td>
+            <td>
+                <div class="form-group">
+                    {!! Form::text('weight_1',null,['class'=>'form-control']) !!}
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+
+
+
+    <hr>
     <div class="form-group">
         {!! Form::label('body_short','Summary') !!}
         {!! Form::textarea('body_short',null,['class'=>'form-control','rows' => 3]) !!}
@@ -48,6 +91,8 @@
     </div>
 
     <hr>
+    <h4>SEO Optimization</h4>
+
     <div class="form-group">
         {!! Form::label('meta_title','Meta Title') !!}
         {!! Form::text('meta_title',null,['class'=>'form-control']) !!}
@@ -62,6 +107,8 @@
     </div>
 
     <hr>
+    <h4>Images</h4>
+
     <div class="row">
         @for ($i = 1; $i <= 8; $i++)
             <div class="col-md-3">
@@ -99,7 +146,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
     <script>
 
-        $(function () {
+        $(document).ready(function () {
             $('.categories').select2({
                 placeholder: 'Select a Category'
             });
@@ -117,6 +164,28 @@
                 filebrowserUploadUrl: '/laravel-filemanager/upload?type=Files&_token='
             });
 
+            var currentItem = 1;
+            $('#addnew').click(function () {
+                currentItem++;
+                $('#items').val(currentItem);
+                var strToAdd = '<tr><td></td><td>' +
+                    '<div class="form-group">' +
+                        '<select name="box_group_'+currentItem+'" class="form-control">'+
+                        '<?php
+                        foreach($box_groups as $box_group){
+                         echo '<option value="'.$box_group['id'].'">'.$box_group['name'].'</option>';
+                        }
+                        ?>.'+
+                        '</select>'+
+                    '</div></td><td>' +
+                    '<input class="form-control" name="weight_'+currentItem+'" type="text">' +
+                    '</td></tr>';
+                $('#data').append(strToAdd);
+
+            });
+
+
         });
     </script>
+
 @endsection

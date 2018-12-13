@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\ProductCreateRequest;
+use App\Models\Box;
+use App\Models\BoxGroupProduct;
+use App\Models\BoxGroups;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -34,8 +37,9 @@ class AdminProductsController extends Controller
     function create()
     {
         //
+        $box_groups = BoxGroups::all();
         $categories = Category::pluck('name', 'id');
-        return view('admin.products.create', compact('categories'));
+        return view('admin.products.create', compact('categories','box_groups'));
     }
 
     /**
@@ -47,12 +51,34 @@ class AdminProductsController extends Controller
     public
     function store(ProductCreateRequest $request)
     {
-        //
+
+
+
+
 
         $categories = request('categories');
 
         $product = Product::create($request->all());
         $product->categories()->attach($categories);
+
+
+        // Box Groups Inserting
+
+        $items=request('items'); // How many box type on form
+
+        for($i=1;$i<=$items;$i++){
+
+            $box_group_product = new BoxGroupProduct;
+            $box_group_product->product_id = $product->id;
+            $box_group_product->box_group_id = request('box_group_'.$i);
+            $box_group_product->weight = request('weight_'.$i);
+            $box_group_product->save();
+
+        }
+
+        // Box Groups Inserting
+
+
 
 
         // Image Processes
@@ -97,10 +123,11 @@ class AdminProductsController extends Controller
     function edit($id)
     {
         //
+        $box_groups = BoxGroups::whereProductId($id);
         $categories = Category::pluck('name', 'id');
         $product = Product::findOrFail($id);
 
-        return view('admin.products.edit', compact('product', 'categories'));
+        return view('admin.products.edit', compact('product', 'categories','box_groups'));
     }
 
     /**

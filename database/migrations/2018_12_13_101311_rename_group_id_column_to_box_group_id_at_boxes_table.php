@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddStatusColumnToCategories extends Migration
+class RenameGroupIdColumnToBoxGroupIdAtBoxesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,8 @@ class AddStatusColumnToCategories extends Migration
      */
     public function up()
     {
-        Schema::table('categories', function (Blueprint $table) {
-            //
-            $table->integer('status')->default(0);
+        Schema::table('boxes', function (Blueprint $table) {
+            $table->renameColumn('group_id','box_group_id');
         });
     }
 
@@ -26,8 +25,9 @@ class AddStatusColumnToCategories extends Migration
      */
     public function down()
     {
-        Schema::table('categories', function (Blueprint $table) {
-            $table->dropColumn('status');
+        Schema::table('boxes', function (Blueprint $table) {
+            //
+            $table->renameColumn('box_group_id', 'group_id');
         });
     }
 }

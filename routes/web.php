@@ -34,7 +34,11 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'],function (){
     Route::resource('/users', 'AdminUsersController');
     Route::resource('/categories', 'AdminCategoriesController');
     Route::resource('/products', 'AdminProductsController');
+    Route::resource('/boxes', 'AdminBoxesController');
+    Route::resource('/box_groups', 'AdminBoxGroupsController');
     Route::post('/products/search', 'AdminProductsController@search');
+    Route::post('/boxes/search', 'AdminBoxesController@search');
+    Route::post('/box_groups/search', 'AdminBoxGroupsController@search');
    // Route::get('/', 'AdminController@index');
 
 

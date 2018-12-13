@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddStatusColumnToCategories extends Migration
+class AddStatusColumnToBoxGroupsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class AddStatusColumnToCategories extends Migration
      */
     public function up()
     {
-        Schema::table('categories', function (Blueprint $table) {
+        Schema::table('box_groups', function (Blueprint $table) {
             //
-            $table->integer('status')->default(0);
+            $table->integer('status')->default('1');
         });
     }
 
@@ -26,7 +26,8 @@ class AddStatusColumnToCategories extends Migration
      */
     public function down()
     {
-        Schema::table('categories', function (Blueprint $table) {
+        Schema::table('box_groups', function (Blueprint $table) {
+            //
             $table->dropColumn('status');
         });
     }

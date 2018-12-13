@@ -26,17 +26,17 @@ class ProductCreateRequest extends FormRequest
         return [
             //
             'sku' => 'required|unique:products',
-            'name' => 'required',
-            'slug' => 'required|unique:products',
-            'price' => 'required',
-            'status' => 'required',
-            'body' => 'required',
-            'body_short' => 'required',
-            'meta_title' => 'required',
-            'meta_description' => 'required',
-            'meta_keyword' => 'required',
-            'sort' =>'integer',
-            'image_1'=> 'image|mimes:jpg,png,jpeg,gif|max:2048'
+//            'name' => 'required',
+//            'slug' => 'required|unique:products',
+//            'price' => 'required',
+//            'status' => 'required',
+//            'body' => 'required',
+//            'body_short' => 'required',
+//            'meta_title' => 'required',
+//            'meta_description' => 'required',
+//            'meta_keyword' => 'required',
+//            'sort' =>'integer',
+//            'image_1'=> 'image|mimes:jpg,png,jpeg,gif|max:2048'
         ];
     }
 

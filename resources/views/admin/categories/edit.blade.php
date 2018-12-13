@@ -28,7 +28,7 @@
     </div>
     <div class="form-group">
         {!! Form::label('status','Status') !!}
-        {!! Form::select('status', ['1' => 'Active', 0 => 'Inactive'], 1 , ['class'=>'form-control']) !!}
+        {!! Form::select('status', ['1' => 'Active', 0 => 'Inactive'], $category->status , ['class'=>'form-control']) !!}
     </div>
     <div class="form-group">
         {!! Form::label('body_short','Summary (Top)') !!}
