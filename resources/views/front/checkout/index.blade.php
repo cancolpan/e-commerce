@@ -9,7 +9,7 @@
     <section class="section-content bg padding-y border-top">
         <div class="container">
             <header class="section-heading heading-line">
-                <h4 class="title-section bg">SHOPPING CART</h4>
+                <h4 class="title-section bg">CHECK OUT</h4>
             </header>
 
             <div class="row">
@@ -17,6 +17,12 @@
                 <main class="col-sm-9">
                     @include('inc.messages')
                     <div class="card">
+
+                        <p>test</p>
+
+
+
+
                         <table class="table table-hover shopping-cart-wrap">
                             <thead class="text-muted">
                             <tr>
@@ -45,7 +51,7 @@
                                                                 href="{{url('/product/'.$content->attributes->slug)}}">{{$content->name}}</a>
                                                     </h6>
                                                     <dl class="dlist-inline small">
-                                                        <dt>Size:</dt>
+                                                        <dt>SKU:</dt>
                                                         <dd>XXL</dd>
                                                     </dl>
                                                     <dl class="dlist-inline small">
@@ -93,7 +99,10 @@
                                         </td>
                                     </tr>
                                 @endforeach()
-                                <tr><td colspan="5"><a href="{{route('cart.clear')}}" class="btn btn-danger">Clear Cart</a></td></tr>
+                                <tr>
+                                    <td colspan="5"><a href="{{route('cart.clear')}}" class="btn btn-danger">Clear
+                                            Cart</a></td>
+                                </tr>
                             @else
                                 <tr>
                                     <td colspan="5">Your Cart is empty</td>
@@ -119,7 +128,7 @@
                         <dd class="text-right"><strong>$ {{Cart::getTotal()}}</strong></dd>
                     </dl>
                     <hr>
-                    <a href="{{route('checkout.index')}}" class="btn btn-primary">Proceed to Checkout</a>
+                    <a href="" class="btn btn-primary">Proceed to Checkout</a>
 
                 </aside> <!-- col.// -->
             </div>

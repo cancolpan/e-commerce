@@ -44,7 +44,7 @@
         <tr>
             <td>#</td>
             <td>Box Group</td>
-            <td>Weight</td>
+            <td>Weight (lb)</td>
         </tr>
         </thead>
         <tbody>
@@ -55,7 +55,7 @@
 
             <td class="col-sm-3">
                 <div class="form-group">
-                    <select name="box_group_1" class="form-control">'+
+                    <select name="box_group[]" class="form-control">'+
                         '<?php
                         foreach ($box_groups as $box_group) {
                             echo '<option value="' . $box_group['id'] . '">' . $box_group['name'] . '</option>';
@@ -66,7 +66,7 @@
             </td>
 
             <td class="col-sm-4">
-                {!! Form::text('weight_1',null,['class'=>'form-control']) !!}
+                {!! Form::text('weight[]',null,['class'=>'form-control']) !!}
             </td>
         </tr>
         </tbody>
@@ -191,7 +191,7 @@
                 var newRow = $("<tr>");
                 var cols = '<td class="col-sm-1"><input type="button" class="ibtnDel btn btn-md btn-danger"  value="Delete"></td><td  class="col-sm-3" >' +
                     '<div class="form-group">' +
-                    '<select name="box_group_' + currentItem + '" class="form-control">' +
+                    '<select name="box_group[]" class="form-control">' +
                     '<?php
                         foreach ($box_groups as $box_group) {
                             echo '<option value="' . $box_group['id'] . '">' . $box_group['name'] . '</option>';
@@ -199,7 +199,7 @@
                         ?>.' +
                     '</select>' +
                     '</div></td><td  class="col-sm-4">' +
-                    '<input class="form-control" name="weight_' + currentItem + '" type="text">' +
+                    '<input class="form-control" name="weight[]" type="text">' +
                     '</td>';
                 newRow.append(cols);
                 $("table.order-list").append(newRow);

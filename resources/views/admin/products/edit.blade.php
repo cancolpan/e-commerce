@@ -29,6 +29,73 @@
         {!! Form::label('price','Price') !!}
         {!! Form::text('price',null,['class'=>'form-control']) !!}
     </div>
+
+
+    <hr>
+    <h4>Packing
+        <small> - Please add packing box type and product weight. If you packing separately please add all packing box
+            options and weights.
+        </small>
+    </h4>
+
+
+
+    <table id="myTable" class=" table order-list">
+        <thead>
+        <tr>
+            <td>#</td>
+            <td>Box Group</td>
+            <td>Weight (lb)</td>
+        </tr>
+        </thead>
+        <tbody>
+        <?php $counter=1;?>
+
+
+
+        @foreach($box_group_products as $box_group_product)
+
+        <tr>
+            <td class="col-sm-1"><input type="hidden" id="items" name="items" value="1"/>
+                <?php if($counter>1){ ?>
+                <input type="button" class="ibtnDel btn btn-md btn-danger"  value="Delete">
+                <?php } $counter++;?>
+            </td>
+
+            <td class="col-sm-3">
+                <div class="form-group">
+                    <select name="box_group[]" class="form-control">
+                        <?php
+                        foreach ($box_groups as $box_group) {
+                            if($box_group_product->box_group_id == $box_group['id']){$selected='selected=selected';}else{$selected='';};
+                            echo '<option  value="' . $box_group['id'] . '" '.$selected.'>' . $box_group['name'] . '</option>';
+                        }
+                        ?>
+                        </select>
+                </div>
+            </td>
+
+            <td class="col-sm-4">
+                {!! Form::text('weight[]',$box_group_product->weight,['class'=>'form-control']) !!}
+            </td>
+        </tr>
+            @endforeach
+
+
+
+        </tbody>
+        <tfoot>
+        <tr>
+            <td colspan="5" style="text-align: left;">
+                <input type="button" class="btn btn-lg btn-block " id="addrow" value="Add Row"/>
+            </td>
+        </tr>
+        <tr>
+        </tr>
+        </tfoot>
+    </table>
+
+
     <div class="form-group">
         {!! Form::label('body_short','Summary') !!}
         {!! Form::textarea('body_short',null,['class'=>'form-control']) !!}
@@ -156,6 +223,40 @@
                 filebrowserBrowseUrl: '/laravel-filemanager?type=Files',
                 filebrowserUploadUrl: '/laravel-filemanager/upload?type=Files&_token='
             });
+
+            // BOX GROUP PROCESS JAVASCRIPT
+
+
+            var currentItem = 1;
+
+            $("#addrow").on("click", function () {
+                currentItem++;
+                var newRow = $("<tr>");
+                var cols = '<td class="col-sm-1"><input type="button" class="ibtnDel btn btn-md btn-danger"  value="Delete"></td><td  class="col-sm-3" >' +
+                    '<div class="form-group">' +
+                    '<select name="box_group[]" class="form-control">' +
+                    '<?php
+                        foreach ($box_groups as $box_group) {
+                            echo '<option value="' . $box_group['id'] . '">' . $box_group['name'] . '</option>';
+                        }
+                        ?>.' +
+                    '</select>' +
+                    '</div></td><td  class="col-sm-4">' +
+                    '<input class="form-control" name="weight[]" type="text">' +
+                    '</td>';
+                newRow.append(cols);
+                $("table.order-list").append(newRow);
+                $('#items').val(currentItem);
+            });
+
+
+            $("table.order-list").on("click", ".ibtnDel", function (event) {
+                $(this).closest("tr").remove();
+                currentItem -= 1
+                $('#items').val(currentItem);
+            });
+
+            // BOX GROUP PROCESS JAVASCRIPT
 
         });
     </script>

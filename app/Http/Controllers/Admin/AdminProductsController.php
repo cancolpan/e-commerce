@@ -39,7 +39,7 @@ class AdminProductsController extends Controller
         //
         $box_groups = BoxGroups::all();
         $categories = Category::pluck('name', 'id');
-        return view('admin.products.create', compact('categories','box_groups'));
+        return view('admin.products.create', compact('categories', 'box_groups'));
     }
 
     /**
@@ -53,9 +53,6 @@ class AdminProductsController extends Controller
     {
 
 
-
-
-
         $categories = request('categories');
 
         $product = Product::create($request->all());
@@ -64,21 +61,22 @@ class AdminProductsController extends Controller
 
         // Box Groups Inserting
 
-        $items=request('items'); // How many box type on form
+        $box_groups = request('box_group');
+        $weights = request('weight');
 
-        for($i=1;$i<=$items;$i++){
+        $counter = count($box_groups);
+
+        for ($i = 0; $i < $counter; $i++) {
 
             $box_group_product = new BoxGroupProduct;
             $box_group_product->product_id = $product->id;
-            $box_group_product->box_group_id = request('box_group_'.$i);
-            $box_group_product->weight = request('weight_'.$i);
+            $box_group_product->box_group_id = $box_groups[$i];;
+            $box_group_product->weight = $weights[$i];;
             $box_group_product->save();
 
         }
 
         // Box Groups Inserting
-
-
 
 
         // Image Processes
@@ -123,11 +121,13 @@ class AdminProductsController extends Controller
     function edit($id)
     {
         //
-        $box_groups = BoxGroups::whereProductId($id);
+        $box_group_products = BoxGroupProduct::where('product_id', $id)->get();
         $categories = Category::pluck('name', 'id');
         $product = Product::findOrFail($id);
+        $box_groups = BoxGroups::all();
 
-        return view('admin.products.edit', compact('product', 'categories','box_groups'));
+
+        return view('admin.products.edit', compact('product', 'categories', 'box_groups', 'box_group_products'));
     }
 
     /**
@@ -140,6 +140,34 @@ class AdminProductsController extends Controller
     public
     function update(Request $request, $id)
     {
+
+        //return request('box_group');
+
+
+        // Box Groups Updating
+
+        BoxGroupProduct::where('product_id', $id)->delete();
+
+
+        $box_groups = request('box_group');
+        $weights = request('weight');
+
+        $counter = count($box_groups);
+
+        for ($i = 0; $i < $counter; $i++) {
+
+
+            $box_group_product = new BoxGroupProduct;
+            $box_group_product->product_id = $id;
+            $box_group_product->box_group_id = $box_groups[$i];
+            $box_group_product->weight = $weights[$i];
+            $box_group_product->save();
+
+        }
+
+
+        // Box Groups Updating
+
 
         $categories = request('categories');
 
