@@ -7,6 +7,8 @@ use App\Models\Box;
 use App\Models\BoxGroupProduct;
 use App\Models\BoxGroups;
 use App\Models\Category;
+use App\Models\PackingType;
+use App\Models\PackingTypeProduct;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -38,8 +40,9 @@ class AdminProductsController extends Controller
     {
         //
         $box_groups = BoxGroups::all();
+        $packing_types = PackingType::all();
         $categories = Category::pluck('name', 'id');
-        return view('admin.products.create', compact('categories', 'box_groups'));
+        return view('admin.products.create', compact('categories', 'box_groups','packing_types'));
     }
 
     /**
@@ -125,9 +128,11 @@ class AdminProductsController extends Controller
         $categories = Category::pluck('name', 'id');
         $product = Product::findOrFail($id);
         $box_groups = BoxGroups::all();
+        $packing_types = PackingType::all();
+        $packing_type_products=PackingTypeProduct::where('product_id',$id)->get();
 
 
-        return view('admin.products.edit', compact('product', 'categories', 'box_groups', 'box_group_products'));
+        return view('admin.products.edit', compact('product', 'categories', 'box_groups', 'box_group_products','packing_types','packing_type_products'));
     }
 
     /**
@@ -144,29 +149,74 @@ class AdminProductsController extends Controller
         //return request('box_group');
 
 
-        // Box Groups Updating
+//        // Box Groups Updating
+//
+//        BoxGroupProduct::where('product_id', $id)->delete();
+//
+//
+//        $box_groups = request('box_group');
+//        $weights = request('weight');
+//
+//        $counter = count($box_groups);
+//
+//        for ($i = 0; $i < $counter; $i++) {
+//
+//
+//            $box_group_product = new BoxGroupProduct;
+//            $box_group_product->product_id = $id;
+//            $box_group_product->box_group_id = $box_groups[$i];
+//            $box_group_product->weight = $weights[$i];
+//            $box_group_product->save();
+//
+//        }
+//
+//
+//        // Box Groups Updating
 
-        BoxGroupProduct::where('product_id', $id)->delete();
+
+        // Packing Types Updating
+
+       // BoxGroupProduct::where('product_id', $id)->delete();
+        PackingTypeProduct::where('product_id',$id)->delete();
 
 
-        $box_groups = request('box_group');
+        //$box_groups = request('box_group');
+        $packing_types=request('packing_type');
+
+
         $weights = request('weight');
 
-        $counter = count($box_groups);
+        //$counter = count($box_groups);
+        $counter = count($packing_types);
 
         for ($i = 0; $i < $counter; $i++) {
 
 
-            $box_group_product = new BoxGroupProduct;
-            $box_group_product->product_id = $id;
-            $box_group_product->box_group_id = $box_groups[$i];
-            $box_group_product->weight = $weights[$i];
-            $box_group_product->save();
+            //$box_group_product = new BoxGroupProduct;
+            $packing_type_product = new PackingTypeProduct;
+
+           // $box_group_product->product_id = $id;
+            $packing_type_product->product_id = $id;
+
+
+           // $box_group_product->box_group_id = $box_groups[$i];
+            $packing_type_product->packing_type_id= $packing_types[$i];
+
+
+            //$box_group_product->weight = $weights[$i];
+            $packing_type_product->weight = $weights[$i];
+
+
+            //$box_group_product->save();
+            $packing_type_product->save();
 
         }
 
 
-        // Box Groups Updating
+        // Packing Types Updating
+
+
+
 
 
         $categories = request('categories');

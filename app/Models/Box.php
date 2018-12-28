@@ -19,7 +19,7 @@ class Box extends Model
         'max_quantity',
         'min_quantity',
         'status',
-        'group_id'
+        'box_group_id'
     ];
 
     public function box_group()

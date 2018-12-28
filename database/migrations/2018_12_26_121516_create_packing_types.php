@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddMinQuantityColumnToBoxes extends Migration
+class CreatePackingTypes extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,12 @@ class AddMinQuantityColumnToBoxes extends Migration
      */
     public function up()
     {
-        Schema::table('boxes', function (Blueprint $table) {
-            //
-            $table->integer('min_quantity')->unsigned();
+        Schema::create('packing_types', function (Blueprint $table) {
+            $table->increments('id');
+            $table->timestamps();
+            $table->string('name');
+            $table->integer('big_order_level');
+            $table->softDeletes();
         });
     }
 
@@ -26,9 +29,6 @@ class AddMinQuantityColumnToBoxes extends Migration
      */
     public function down()
     {
-        Schema::table('boxes', function (Blueprint $table) {
-            //
-            $table->dropColumn('min_quantity');
-        });
+        Schema::dropIfExists('packing_types');
     }
 }

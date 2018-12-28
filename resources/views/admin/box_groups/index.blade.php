@@ -4,7 +4,7 @@
 @section('content')
 
 
-
+    <a class="btn btn-primary btn-sm" href="{{route('box_groups.create')}}">Create</a>
 
 
             {!! Form::open(['method'=>'POST', 'action'=>'Admin\AdminBoxGroupsController@search']) !!}

@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class BoxesCreateRequest extends FormRequest
+class PackingRulesCreateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,23 +24,22 @@ class BoxesCreateRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
-            'length' => 'required|integer',
-            'width' => 'required|integer',
-            'height' => 'required|integer',
-            'box_group_id' => 'required|integer',
+            'packing_type_id'=>'required',
+            'min_quantity'=>'required|integer',
+            'max_quantity'=>'required|integer',
+            'box_id'=>'integer',
+            'box_id_big_order'=>'integer'
         ];
     }
 
     public function attributes()
     {
         return [
-            'name' => 'Box Name',
-            'length' => 'Box length',
-            'width' => 'Box width',
-            'height' => 'Box height',
-            'box_group_id'=>'Box group'
+            'packing_type_id'=>'Packing Type',
+            'min_quantity'=>'Min Quantity',
+            'max_quantity'=>'Max Quantity',
+            'box_id'=>'Packing Box',
+            'box_id_big_order'=>'Big Order Packing Box'
         ];
     }
-
 }

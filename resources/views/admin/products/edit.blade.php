@@ -33,7 +33,7 @@
 
     <hr>
     <h4>Packing
-        <small> - Please add packing box type and product weight. If you packing separately please add all packing box
+        <small> - Please add packing types and each packing product weight. If you packing separately please add all packing type
             options and weights.
         </small>
     </h4>
@@ -44,7 +44,7 @@
         <thead>
         <tr>
             <td>#</td>
-            <td>Box Group</td>
+            <td>Packing Type</td>
             <td>Weight (lb)</td>
         </tr>
         </thead>
@@ -53,7 +53,7 @@
 
 
 
-        @foreach($box_group_products as $box_group_product)
+        @foreach($packing_type_products as $packing_type_product)
 
         <tr>
             <td class="col-sm-1"><input type="hidden" id="items" name="items" value="1"/>
@@ -64,11 +64,11 @@
 
             <td class="col-sm-3">
                 <div class="form-group">
-                    <select name="box_group[]" class="form-control">
+                    <select name="packing_type[]" class="form-control">
                         <?php
-                        foreach ($box_groups as $box_group) {
-                            if($box_group_product->box_group_id == $box_group['id']){$selected='selected=selected';}else{$selected='';};
-                            echo '<option  value="' . $box_group['id'] . '" '.$selected.'>' . $box_group['name'] . '</option>';
+                        foreach ($packing_types as $packing_type) {
+                            if($packing_type_product->packing_type_id == $packing_type['id']){$selected='selected=selected';}else{$selected='';};
+                            echo '<option  value="' . $packing_type['id'] . '" '.$selected.'>' . $packing_type['name'] . '</option>';
                         }
                         ?>
                         </select>
@@ -76,7 +76,7 @@
             </td>
 
             <td class="col-sm-4">
-                {!! Form::text('weight[]',$box_group_product->weight,['class'=>'form-control']) !!}
+                {!! Form::text('weight[]',$packing_type_product->weight,['class'=>'form-control']) !!}
             </td>
         </tr>
             @endforeach
@@ -234,10 +234,10 @@
                 var newRow = $("<tr>");
                 var cols = '<td class="col-sm-1"><input type="button" class="ibtnDel btn btn-md btn-danger"  value="Delete"></td><td  class="col-sm-3" >' +
                     '<div class="form-group">' +
-                    '<select name="box_group[]" class="form-control">' +
+                    '<select name="packing_type[]" class="form-control">' +
                     '<?php
-                        foreach ($box_groups as $box_group) {
-                            echo '<option value="' . $box_group['id'] . '">' . $box_group['name'] . '</option>';
+                        foreach ($packing_types as $packing_type) {
+                            echo '<option value="' . $packing_type['id'] . '">' . $packing_type['name'] . '</option>';
                         }
                         ?>.' +
                     '</select>' +

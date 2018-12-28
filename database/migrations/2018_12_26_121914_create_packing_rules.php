@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTableBoxes extends Migration
+class CreatePackingRules extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,13 @@ class CreateTableBoxes extends Migration
      */
     public function up()
     {
-        Schema::create('boxes', function (Blueprint $table) {
+        Schema::create('packing_rules', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
-            $table->integer('length')->unsigned();
-            $table->integer('width')->unsigned();
-            $table->integer('height')->unsigned();
-            $table->integer('status')->default(0);
+            $table->integer('packing_type_id')->unsigned();
+            $table->smallInteger('min_quantity')->unsigned();
+            $table->smallInteger('max_quantity')->unsigned();
+            $table->integer('box_id')->unsigned();
+            $table->integer('box_id_big_order')->unsigned();
             $table->timestamps();
             $table->softDeletes();
         });
@@ -32,6 +32,6 @@ class CreateTableBoxes extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('boxes');
+        Schema::dropIfExists('packing_rules');
     }
 }

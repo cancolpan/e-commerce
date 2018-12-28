@@ -7,8 +7,8 @@
     {!! Form::open(['method'=>'POST', 'action'=>'Admin\AdminBoxesController@store']) !!}
 
     <div class="form-group">
-        {!! Form::label('group_id','Box Group') !!}
-        {!! Form::select('group_id',[''=>'Choose Options'] + $box_groups ,null,['class'=>'form-control']) !!}
+        {!! Form::label('box_group_id','Box Group') !!}
+        {!! Form::select('box_group_id',[''=>'Choose Options'] + $box_groups ,null,['class'=>'form-control']) !!}
     </div>
 
     <div class="form-group">
@@ -27,14 +27,6 @@
     <div class="form-group">
         {!! Form::label('height','Height: (in)') !!}
         {!! Form::text('height',null,['class'=>'form-control']) !!}
-    </div>
-    <div class="form-group">
-        {!! Form::label('min_quantity','Min Product Capacity:') !!}
-        {!! Form::text('min_quantity',null,['class'=>'form-control']) !!}
-    </div>
-    <div class="form-group">
-        {!! Form::label('max_quantity','Max Product Capacity:') !!}
-        {!! Form::text('max_quantity',null,['class'=>'form-control']) !!}
     </div>
 
     <div class="form-group">

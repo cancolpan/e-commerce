@@ -1,49 +1,29 @@
 @extends('layouts.admin')
 
-@section('page_title', 'Packing Boxes')
+@section('page_title', 'Packing Types')
 @section('content')
 
 
-    <a class="btn btn-primary btn-sm" href="{{route('boxes.create')}}">Create</a>
 
-
-            {!! Form::open(['method'=>'POST', 'action'=>'Admin\AdminBoxesController@search']) !!}
-
-
-
-                <div class="form-group -pull-right">
-                    {!! Form::text('keyword', null, ['class'=>'form-control','placeholder'=>'Search...']) !!}
-                </div>
-
-
-                {!! Form::close() !!}
-
+    <a href="{{route('packing_types.create')}}" class="btn btn-primary btn-sm">Create</a>
 
     <div class="table-responsive">
         <table class="table table-bordered" id="#dataTable" width="100%" cellspacing="0">
             <thead>
             <tr>
                 <th width="5px">#</th>
-                <th width="200px">Box Group</th>
-                <th width="300px">Name</th>
-                <th width="10px">Length</th>
-                <th width="50px">Width</th>
-                <th width="10px">Height</th>
-                <th width="10px">Status</th>
+                <th width="200px">Name</th>
+                <th width="200px">Big Order Level</th>
                 <th>Updated</th>
             </tr>
             </thead>
             <tbody>
-            @foreach($boxes as $box)
+            @foreach($packing_types as $packing_type)
                 <tr>
-                    <td>{{$box->id}}</td>
-                    <td>{{$box->box_group->name}}</td>
-                    <td><a href="{{route('boxes.edit', $box->id)}}">{{$box->name}}</a></td>
-                    <td>{{$box->length}}</td>
-                    <td>{{$box->width}}</td>
-                    <td>{{$box->height}}</td>
-                    <td>{{$box->status==1 ? 'Active' : 'Inactive'}}</td>
-                    <td>{{$box->updated_at->diffForHumans()}}</td>
+                    <td>{{$packing_type->id}}</td>
+                    <td><a href="{{route('packing_types.edit', $packing_type->id)}}">{{$packing_type->name}}</a></td>
+                    <td>{{$packing_type->big_order_level}}</td>
+                    <td>{{$packing_type->updated_at->diffForHumans()}}</td>
                 </tr>
             @endforeach
             </tbody>
