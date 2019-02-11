@@ -41,6 +41,10 @@ class Product extends Model
         'image_description_6',
         'image_description_7',
         'image_description_8',
+        'height',
+        'width',
+        'depth',
+        'weight',
     ];
 
 

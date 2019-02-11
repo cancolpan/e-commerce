@@ -54,16 +54,10 @@
                                         <dd>{!! $product->body_short !!}</dd>
                                     </dl>
                                     <dl class="row">
-                                        <dt class="col-sm-3">Model#</dt>
-                                        <dd class="col-sm-9">12345611</dd>
-
-                                        <dt class="col-sm-3">Color</dt>
-                                        <dd class="col-sm-9">Black and white </dd>
-
-                                        <dt class="col-sm-3">Delivery</dt>
-                                        <dd class="col-sm-9">Russia, USA, and Europe </dd>
+                                        <dt class="col-sm-3">SKU #</dt>
+                                        <dd class="col-sm-9">{{ $product->sku }}</dd>
                                     </dl>
-                                    <div class="rating-wrap">
+                                   <!-- <div class="rating-wrap">
 
                                         <ul class="rating-stars">
                                             <li style="width:80%" class="stars-active">

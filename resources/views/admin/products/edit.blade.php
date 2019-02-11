@@ -30,7 +30,27 @@
         {!! Form::text('price',null,['class'=>'form-control']) !!}
     </div>
 
+    <div class="form-group">
+        {!! Form::label('width','Width (in)') !!}
+        {!! Form::text('width',null,['class'=>'form-control']) !!}
+    </div>
 
+    <div class="form-group">
+        {!! Form::label('height', 'Height (in)') !!}
+        {!! Form::text('height', null, ['class'=>'form-control']) !!}
+    </div>
+
+    <div class="form-group">
+        {!! Form::label('depth', 'Depth (in)') !!}
+        {!! Form::text('depth', null, ['class'=>'form-control']) !!}
+    </div>
+    <div class="form-group">
+        {!! Form::label('weight','Weight (lb)') !!}
+        {!! Form::text('weight',null,['class'=>'form-control']) !!}
+    </div>
+
+
+<!--
     <hr>
     <h4>Packing
         <small> - Please add packing types and each packing product weight. If you packing separately please add all packing type
@@ -94,7 +114,7 @@
         </tr>
         </tfoot>
     </table>
-
+-->
 
     <div class="form-group">
         {!! Form::label('body_short','Summary') !!}

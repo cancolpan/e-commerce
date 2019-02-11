@@ -62,24 +62,24 @@ class AdminProductsController extends Controller
         $product->categories()->attach($categories);
 
 
-        // Box Groups Inserting
-
-        $box_groups = request('box_group');
-        $weights = request('weight');
-
-        $counter = count($box_groups);
-
-        for ($i = 0; $i < $counter; $i++) {
-
-            $box_group_product = new BoxGroupProduct;
-            $box_group_product->product_id = $product->id;
-            $box_group_product->box_group_id = $box_groups[$i];;
-            $box_group_product->weight = $weights[$i];;
-            $box_group_product->save();
-
-        }
-
-        // Box Groups Inserting
+//        // Box Groups Inserting
+//
+//        $box_groups = request('box_group');
+//        $weights = request('weight');
+//
+//        $counter = count($box_groups);
+//
+//        for ($i = 0; $i < $counter; $i++) {
+//
+//            $box_group_product = new BoxGroupProduct;
+//            $box_group_product->product_id = $product->id;
+//            $box_group_product->box_group_id = $box_groups[$i];;
+//            $box_group_product->weight = $weights[$i];;
+//            $box_group_product->save();
+//
+//        }
+//
+//        // Box Groups Inserting
 
 
         // Image Processes
@@ -174,46 +174,46 @@ class AdminProductsController extends Controller
 //        // Box Groups Updating
 
 
-        // Packing Types Updating
-
-       // BoxGroupProduct::where('product_id', $id)->delete();
-        PackingTypeProduct::where('product_id',$id)->delete();
-
-
-        //$box_groups = request('box_group');
-        $packing_types=request('packing_type');
-
-
-        $weights = request('weight');
-
-        //$counter = count($box_groups);
-        $counter = count($packing_types);
-
-        for ($i = 0; $i < $counter; $i++) {
-
-
-            //$box_group_product = new BoxGroupProduct;
-            $packing_type_product = new PackingTypeProduct;
-
-           // $box_group_product->product_id = $id;
-            $packing_type_product->product_id = $id;
-
-
-           // $box_group_product->box_group_id = $box_groups[$i];
-            $packing_type_product->packing_type_id= $packing_types[$i];
-
-
-            //$box_group_product->weight = $weights[$i];
-            $packing_type_product->weight = $weights[$i];
-
-
-            //$box_group_product->save();
-            $packing_type_product->save();
-
-        }
-
-
-        // Packing Types Updating
+//        // Packing Types Updating
+//
+//       // BoxGroupProduct::where('product_id', $id)->delete();
+//        PackingTypeProduct::where('product_id',$id)->delete();
+//
+//
+//        //$box_groups = request('box_group');
+//        $packing_types=request('packing_type');
+//
+//
+//        $weights = request('weight');
+//
+//        //$counter = count($box_groups);
+//        $counter = count($packing_types);
+//
+//        for ($i = 0; $i < $counter; $i++) {
+//
+//
+//            //$box_group_product = new BoxGroupProduct;
+//            $packing_type_product = new PackingTypeProduct;
+//
+//           // $box_group_product->product_id = $id;
+//            $packing_type_product->product_id = $id;
+//
+//
+//           // $box_group_product->box_group_id = $box_groups[$i];
+//            $packing_type_product->packing_type_id= $packing_types[$i];
+//
+//
+//            //$box_group_product->weight = $weights[$i];
+//            $packing_type_product->weight = $weights[$i];
+//
+//
+//            //$box_group_product->save();
+//            $packing_type_product->save();
+//
+//        }
+//
+//
+//        // Packing Types Updating
 
 
 

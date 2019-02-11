@@ -112,7 +112,7 @@
                             <a href="{{url('/product/'.$product->slug)}}"><img src="{{URL::to('/') }}/uploads/products/{{$product['image_1']}}"></a>
                         </div>
                         <figcaption class="info-wrap">
-                            <a href="{{url('/product/'.$product->slug)}}" class="title">{{$product->name}}</a>
+                            <a href="{{url('/product/'.$product->slug)}}" class="title">{{$product->name}} ({{$product->sku}})</a>
                             <div class="action-wrap">
                                 <a href="{{url('/product/'.$product->slug)}}" class="btn btn-primary btn-sm float-right">
                                     Select Options </a>

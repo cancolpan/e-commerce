@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\BoxGroupProduct;
 use App\Models\BoxGroups;
+use App\Models\PackingType;
+use App\Models\PackingTypeProduct;
 use App\Models\Product;
 use Darryldecode\Cart\Cart;
 use Illuminate\Http\Request;
@@ -12,44 +14,40 @@ class CartController extends Controller
 {
     public function index()
     {
-    session_start();
+        session_start();
+
         $products = \Cart::getContent();
+
 
         if (count($products) > 0) {
 
-            $box_groups = BoxGroups::all();
-            $boxes = array();
-            $newdata= array();
 
-            foreach ($box_groups as $box_group) {
+            $packing_types = PackingType::all();
 
-
-                ${"product_" . $box_group->id} = array();
-                ${"weight_" . $box_group->id} = array();
-
-
+            foreach ($packing_types as $packing_type) {
+                //$newdata = array();
+                ${'type_' . $packing_type->id} = array();
 
                 foreach ($products as $product) {
 
-                    //  echo $product->id.'</br>';
+                    $packing_type_products = PackingTypeProduct::where('product_id', '=', $product->id)->get();
 
-                    $box = BoxGroupProduct::where('box_group_id', '=', $box_group->id)->where('product_id', '=', $product->id)->first();
+                    //print_r($packing_type_products); die();
 
-                    if (count($box) == '1') {
+                    foreach ($packing_type_products as $packing_type_product) {
 
-                        // Eger urun bu grupta ise bu gruba ait array e ekliyoruz
+                        if ($packing_type->id == $packing_type_product->packing_type_id) {
 
-                        $newdata= array(
-                            'box_group_id'=>$box->box_group_id,
-                            'weight'=>$box->weight,
-                            'quantity'=>$product->quantity
-                        );
+                            $newdata = array(
+                                'packing_type_id' => $packing_type->id,
+                                'weight' => $packing_type_product->weight,
+                                'quantity' => $product->quantity,
+                            );
 
-
-
-                        array_push( $boxes ,$newdata);
+                            array_push(${'type_' . $packing_type->id}, $newdata);
 
 
+                        }
 
 
                     }
@@ -57,23 +55,65 @@ class CartController extends Controller
 
                 }
 
-                // Sepetteki urunler kutu, adet ve agirliklariyla session a atiliyor.
+                //print_r(${'type_' . $packing_type->id});
 
-                session(["packing_boxes" => ${"boxes"}]);
+                //Session a atiyoruz
 
-
+                session(["type_" . $packing_type->id => ${'type_' . $packing_type->id}]);
 
             }
 
+
+//            $box_groups = BoxGroups::all();
+//            $boxes = array();
+//            $newdata = array();
+//
+//            foreach ($box_groups as $box_group) {
+//
+//
+//                ${"product_" . $box_group->id} = array();
+//                ${"weight_" . $box_group->id} = array();
+//
+//
+//                foreach ($products as $product) {
+//
+//                    //  echo $product->id.'</br>';
+//
+//                    $box = BoxGroupProduct::where('box_group_id', '=', $box_group->id)->where('product_id', '=', $product->id)->first();
+//
+//                    if (count($box) == '1') {
+//
+//                        // Eger urun bu grupta ise bu gruba ait array e ekliyoruz
+//
+//                        $newdata = array(
+//                            'box_group_id' => $box->box_group_id,
+//                            'weight' => $box->weight,
+//                            'quantity' => $product->quantity
+//                        );
+//
+//
+//                        array_push($boxes, $newdata);
+//
+//
+//                    }
+//
+//
+//                }
+//
+//                // Sepetteki urunler kutu, adet ve agirliklariyla session a atiliyor.
+//
+//                session(["packing_boxes" => ${"boxes"}]);
+
+
         }
 
-
-         return view('front.cart.index');
+        return view('front.cart.index');
 
     }
 
 
-    public function add()
+    public
+    function add()
     {
 
         $product = Product::findOrFail(request('id'));
@@ -92,7 +132,8 @@ class CartController extends Controller
 
     }
 
-    public function remove()
+    public
+    function remove()
     {
         \Cart::remove(request('id'));
         return redirect()->route('cart')->with('success', 'Product Removed from Cart');
@@ -100,7 +141,8 @@ class CartController extends Controller
 
     }
 
-    public function update()
+    public
+    function update()
     {
 
         \Cart::update(request('id'), array(
@@ -116,7 +158,8 @@ class CartController extends Controller
 
     }
 
-    public function clear()
+    public
+    function clear()
     {
 
         \Cart::clear();
